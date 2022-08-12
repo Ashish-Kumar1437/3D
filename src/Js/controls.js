@@ -2,19 +2,14 @@ import * as THREE from 'three';
 
 
 export class Controls{
-    mixer:THREE.AnimationMixer;
-    animationMap: Map<string, THREE.AnimationAction> = new Map();
-    currentAction:string ;
-    fadeDuration=0.2;
-    model:THREE.Group;
-    shift:boolean=false;
-    keys=['w','a','s','d','ArrowUp','ArrowLeft','ArrowDown','ArrowRight'];
-    
-    constructor(mixer:THREE.AnimationMixer,animationMap: Map<string, THREE.AnimationAction>,model:THREE.Group,currentAction:string){
+    constructor(mixer,animationMap,model,currentAction){
         this.mixer=mixer;
         this.animationMap=animationMap;
         this.model=model;
         this.currentAction=currentAction;
+        this.fadeDuration=0.2;
+        this.shift=false;
+        this.keys=['w','a','s','d','ArrowUp','ArrowLeft','ArrowDown','ArrowRight'];
         this.animationMap.forEach((value, key) => {
             if (key == currentAction) {
                 value.play()
@@ -22,11 +17,12 @@ export class Controls{
         })
     }
     
-    public toggleshift(){
-        this.shift = !this.shift;
+    
+    toggleshift(){
+       this.shift=!this.shift;
     }
 
-    public UpdateMovement(delta:number,keyPressed:object){
+    UpdateMovement(delta,keyPressed){
         const movement=this.keys.some(key => keyPressed[key]==true);
         var play="";
         if(movement && this.shift) play='Run';

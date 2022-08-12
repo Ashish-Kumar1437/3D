@@ -33,7 +33,7 @@ scene.add(new THREE.AmbientLight('white',0.5))
 const url=new URL('../model/Soldier.glb',import.meta.url);
 const loader=new GLTFLoader();
 
-var controls:Controls;
+let controls;
 loader.load(url.href,(gltf)=>{
     const model=gltf.scene;
     model.traverse((obj)=>{
@@ -56,12 +56,12 @@ window.addEventListener('keydown',(e)=>{
     if(e.shiftKey && controls){
         controls.toggleshift();
     }else{
-        keyPressed[e.key]=true;
+        keyPressed[e.key.toLowerCase()]=true;
     }
     // console.log(e.key);
 })
 window.addEventListener('keyup',(e)=>{
-        keyPressed[e.key]=false;
+        keyPressed[e.key.toLowerCase()]=false;
     // console.log(e.key);
 })
 
